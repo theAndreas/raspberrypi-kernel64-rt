@@ -34,16 +34,16 @@ echo "Create folder ${INSTALL_MOD_PATH}/overlays"
 mkdir -p ${INSTALL_DTBS_PATH}/overlays/
 
 echo "Copying kernel modules"
-#cp -r ${INSTALL_FOLDER_PATH}/lib ${PACKAGE_NAME_FOLDER_PATH}/lib
+cp -r ${INSTALL_FOLDER_PATH}/lib ${PACKAGE_NAME_FOLDER_PATH}/lib
 
 echo "Copying kernel device tree blobs"
-#cp ${INSTALL_FOLDER_PATH}/boot/dtbs/broadcom/* ${INSTALL_DTBS_PATH}
+cp ${INSTALL_FOLDER_PATH}/boot/dtbs/broadcom/* ${INSTALL_DTBS_PATH}
 
 echo "Copying and renaming the kernel image"
-#cp ${INSTALL_FOLDER_PATH}/boot/Image ${INSTALL_DTBS_PATH}/${KERNEL_IMAGE_FILE_NAME}
+cp ${INSTALL_FOLDER_PATH}/boot/Image ${INSTALL_DTBS_PATH}/${KERNEL_IMAGE_FILE_NAME}
 
 echo "Copying kernel device tree blobs overlays"
-#cp ${INSTALL_FOLDER_PATH}/boot/dtbs/overlays/* ${INSTALL_DTBS_PATH}/overlays
+cp ${INSTALL_FOLDER_PATH}/boot/dtbs/overlays/* ${INSTALL_DTBS_PATH}/overlays
 
 echo "Copying README.txt"
 cp ${INSTALL_FOLDER_PATH}/README.txt ${DEB_PACKAGE_FOLDER_PATH}
