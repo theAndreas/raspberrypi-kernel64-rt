@@ -1,26 +1,38 @@
 #!/bin/bash
 
+# Set pacakge version without epoche
 DEB_PACKAGE_VERSION_WITHOUT_EPOCHE=1.20230317-1
-DEB_PACKAGE_VERSION=1:${DEB_PACKAGE_VERSION_WITHOUT_EPOCHE}
-DEB_PACKAGE_FOLDER_PATH=./deb-package
 
-# Do not change!
+# Do not change the following variables!
 PACKAGE_NAME=raspberrypi-kernel
+DEB_PACKAGE_VERSION=1:${DEB_PACKAGE_VERSION_WITHOUT_EPOCHE}
 PACKAGE_FILE_NAME=${PACKAGE_NAME}_${DEB_PACKAGE_VERSION_WITHOUT_EPOCHE}_arm64.deb
-PACKAGE_NAME_FOLDER_PATH=${DEB_PACKAGE_FOLDER_PATH}/${PACKAGE_NAME}
 KERNEL_IMAGE_FILE_NAME=kernel8.img
-# Do not change! Must be the same value as ${INSTALL_FOLDER} in build-kernel.sh
-INSTALL_FOLDER_PATH=./install
 
+CURRENT_WORKING_DIR=$(pwd)
+
+# INSTALL_FOLDER_NAME must be the same value as ${INSTALL_FOLDER_NAME} in build-kernel.sh
+INSTALL_FOLDER_NAME=install
+DEB_PACKAGE_FOLDER_NAME=deb-package
+
+DEB_PACKAGE_FOLDER_PATH=${CURRENT_WORKING_DIR}/${DEB_PACKAGE_FOLDER_NAME}
+PACKAGE_NAME_FOLDER_PATH=${DEB_PACKAGE_FOLDER_PATH}/${PACKAGE_NAME}
+
+echo "Clear folder ${DEB_PACKAGE_FOLDER_PATH}"
 rm -rf ${DEB_PACKAGE_FOLDER_PATH}
 mkdir -p ${PACKAGE_NAME_FOLDER_PATH}
 
 INSTALL_MOD_PATH=${PACKAGE_NAME_FOLDER_PATH}
 INSTALL_DTBS_PATH=${INSTALL_MOD_PATH}/boot
 
+echo "Create folder ${INSTALL_MOD_PATH}"
 mkdir -p ${INSTALL_MOD_PATH}
+echo "Create folder ${INSTALL_MOD_PATH}/boot"
 mkdir -p ${INSTALL_MOD_PATH}/boot
+echo "Create folder ${INSTALL_MOD_PATH}/overlays"
 mkdir -p ${INSTALL_DTBS_PATH}/overlays/
+
+exit
 
 echo "Copying kernel modules"
 cp -r ${INSTALL_FOLDER_PATH}/lib ${PACKAGE_NAME_FOLDER_PATH}/lib
@@ -38,12 +50,21 @@ echo "Copying README.txt"
 cp ${INSTALL_FOLDER_PATH}/README.txt ${DEB_PACKAGE_FOLDER_PATH}
 
 cd ${PACKAGE_NAME_FOLDER_PATH}
+CURRENT_WORKING_DIR=$(pwd)
 
 mkdir -p DEBIAN
 cd DEBIAN
+CURRENT_WORKING_DIR=$(pwd)
 
-echo "Creating control file"
-cat << EOF > control
+CONTROL_FILE_NAME=control
+POST_INSTALL_FILE_NAME=postinst
+
+CONTROL_FILE=${CURRENT_WORKING_DIR}/${CONTROL_FILE_NAME}
+POST_INSTALL_FILE=${CURRENT_WORKING_DIR}/${POST_INSTALL_FILE_NAME}
+
+
+echo "Creating control file ${CONTROL_FILE}"
+cat << EOF > ${CONTROL_FILENAME}
 Package: ${PACKAGE_NAME}
 Source: raspberrypi-firmware
 Installed-Size: `du -ks ../|cut -f 1`
@@ -62,16 +83,17 @@ Description: Raspberry Pi bootloader.
 EOF
 
 
-echo "Creating post install file"
-cat << EOF > postinst
+echo "Creating post install file ${POST_INSTALL_FILE}"
+cat << EOF > ${POST_INSTALL_FILE_NAME}
 #!/bin/bash
 chmod -R +x /boot/overlays
 chmod +x /boot/*.img
 chmod +x /boot/*.dtb
 EOF
-chmod 0755 postinst
+chmod 0755 ${POST_INSTALL_FILE}
 
 cd ../..
+CURRENT_WORKING_DIR=$(pwd)
 
 echo "Building debian package"
 dpkg-deb --build --root-owner-group -Zxz ${PACKAGE_NAME}
