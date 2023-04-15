@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set pacakge version without epoche
-DEB_PACKAGE_VERSION_WITHOUT_EPOCHE=1.20230405
+DEB_PACKAGE_VERSION_WITHOUT_EPOCHE=1.20230405-1
 
 # Do not change the following variables!
 PACKAGE_NAME=raspberrypi-kernel
