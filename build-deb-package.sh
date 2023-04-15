@@ -15,6 +15,7 @@ CURRENT_WORKING_DIR=$(pwd)
 INSTALL_FOLDER_NAME=install
 DEB_PACKAGE_FOLDER_NAME=deb-package
 
+INSTALL_FOLDER_PATH=${CURRENT_WORKING_DIR}/${INSTALL_FOLDER_NAME}
 DEB_PACKAGE_FOLDER_PATH=${CURRENT_WORKING_DIR}/${DEB_PACKAGE_FOLDER_NAME}
 PACKAGE_NAME_FOLDER_PATH=${DEB_PACKAGE_FOLDER_PATH}/${PACKAGE_NAME}
 
@@ -32,29 +33,28 @@ mkdir -p ${INSTALL_MOD_PATH}/boot
 echo "Create folder ${INSTALL_MOD_PATH}/overlays"
 mkdir -p ${INSTALL_DTBS_PATH}/overlays/
 
-exit
-
 echo "Copying kernel modules"
-cp -r ${INSTALL_FOLDER_PATH}/lib ${PACKAGE_NAME_FOLDER_PATH}/lib
+#cp -r ${INSTALL_FOLDER_PATH}/lib ${PACKAGE_NAME_FOLDER_PATH}/lib
 
 echo "Copying kernel device tree blobs"
-cp ${INSTALL_FOLDER_PATH}/boot/dtbs/broadcom/* ${INSTALL_DTBS_PATH}
+#cp ${INSTALL_FOLDER_PATH}/boot/dtbs/broadcom/* ${INSTALL_DTBS_PATH}
 
 echo "Copying and renaming the kernel image"
-cp ${INSTALL_FOLDER_PATH}/boot/Image ${INSTALL_DTBS_PATH}/${KERNEL_IMAGE_FILE_NAME}
+#cp ${INSTALL_FOLDER_PATH}/boot/Image ${INSTALL_DTBS_PATH}/${KERNEL_IMAGE_FILE_NAME}
 
 echo "Copying kernel device tree blobs overlays"
-cp ${INSTALL_FOLDER_PATH}/boot/dtbs/overlays/* ${INSTALL_DTBS_PATH}/overlays
+#cp ${INSTALL_FOLDER_PATH}/boot/dtbs/overlays/* ${INSTALL_DTBS_PATH}/overlays
 
 echo "Copying README.txt"
 cp ${INSTALL_FOLDER_PATH}/README.txt ${DEB_PACKAGE_FOLDER_PATH}
 
-cd ${PACKAGE_NAME_FOLDER_PATH}
-CURRENT_WORKING_DIR=$(pwd)
+echo "Create folder ${CURRENT_WORKING_DIR}/DEBIAN"
+mkdir -p ${PACKAGE_NAME_FOLDER_PATH}/DEBIAN
 
-mkdir -p DEBIAN
-cd DEBIAN
+# Switch working directory
+cd ${PACKAGE_NAME_FOLDER_PATH}/DEBIAN
 CURRENT_WORKING_DIR=$(pwd)
+echo "Switch to ${CURRENT_WORKING_DIR}"
 
 CONTROL_FILE_NAME=control
 POST_INSTALL_FILE_NAME=postinst
@@ -62,9 +62,8 @@ POST_INSTALL_FILE_NAME=postinst
 CONTROL_FILE=${CURRENT_WORKING_DIR}/${CONTROL_FILE_NAME}
 POST_INSTALL_FILE=${CURRENT_WORKING_DIR}/${POST_INSTALL_FILE_NAME}
 
-
 echo "Creating control file ${CONTROL_FILE}"
-cat << EOF > ${CONTROL_FILENAME}
+cat << EOF > ${CONTROL_FILE_NAME}
 Package: ${PACKAGE_NAME}
 Source: raspberrypi-firmware
 Installed-Size: `du -ks ../|cut -f 1`
@@ -82,7 +81,6 @@ Description: Raspberry Pi bootloader.
  This package contains the Raspberry Pi Realtime Linux kernel (PREEMPT_RT).
 EOF
 
-
 echo "Creating post install file ${POST_INSTALL_FILE}"
 cat << EOF > ${POST_INSTALL_FILE_NAME}
 #!/bin/bash
@@ -92,8 +90,10 @@ chmod +x /boot/*.dtb
 EOF
 chmod 0755 ${POST_INSTALL_FILE}
 
+# Switch working directory
 cd ../..
 CURRENT_WORKING_DIR=$(pwd)
+echo "Switch to ${CURRENT_WORKING_DIR}"
 
 echo "Building debian package"
 dpkg-deb --build --root-owner-group -Zxz ${PACKAGE_NAME}
