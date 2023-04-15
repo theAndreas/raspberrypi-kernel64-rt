@@ -45,8 +45,12 @@ cp ${INSTALL_FOLDER_PATH}/boot/Image ${INSTALL_DTBS_PATH}/${KERNEL_IMAGE_FILE_NA
 echo "Copying kernel device tree blobs overlays"
 cp ${INSTALL_FOLDER_PATH}/boot/dtbs/overlays/* ${INSTALL_DTBS_PATH}/overlays
 
-echo "Copying README.txt"
-cp ${INSTALL_FOLDER_PATH}/README.txt ${DEB_PACKAGE_FOLDER_PATH}
+echo "Copying install README"
+cp ${INSTALL_FOLDER_PATH}/README ${DEB_PACKAGE_FOLDER_PATH}
+
+echo "Extend install README"
+DEB_PACKAGE_README=${DEB_PACKAGE_FOLDER_PATH}/README
+echo "Package version: ${DEB_PACKAGE_VERSION}" >> ${DEB_PACKAGE_README}
 
 echo "Create folder ${CURRENT_WORKING_DIR}/DEBIAN"
 mkdir -p ${PACKAGE_NAME_FOLDER_PATH}/DEBIAN
