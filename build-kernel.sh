@@ -12,7 +12,7 @@ CURRENT_WORKING_DIR=$(pwd)
 RPI_KERNEL_REPO_TREE_URL=${RPI_KERNEL_REPO_URL}/tree
 RPI_KERNEL_BRANCH_URL=${RPI_KERNEL_REPO_TREE_URL}/${RPI_LINUX_KERNEL_BRANCH}
 
-# INSTALL_FOLDER_NAME must be the same value as ${INSTALL_FOLDER_NAME} in build-deb-package.sh
+# INSTALL_FOLDER_NAME must be the same value as ${INSTALL_FOLDER_NAME in build-deb-package.sh
 INSTALL_FOLDER_NAME=install
 BUILD_FOLDER_NAME=build
 LINUX_KERNEL_REPO_NAME=linux
@@ -64,6 +64,8 @@ make ARCH=arm64 mrproper
 
 echo "Downloading realtime kernel patch"
 wget ${RT_KERNEL_PATCH_URL}
+
+echo "Unpacking realtime kernel patch"
 gunzip ${RT_KERNEL_PATCH_FILE_NAME}
 
 echo "Apply realtime kernel patch"
