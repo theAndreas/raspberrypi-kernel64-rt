@@ -4,11 +4,13 @@
 DEB_PACKAGE_VERSION_WITHOUT_EPOCHE=1.20230405-1
 
 # Do not change the following variables!
+INITIAL_WORKING_DIR=$(pwd)
 CURRENT_WORKING_DIR=$(pwd)
 PACKAGE_NAME=raspberrypi-kernel
 DEB_PACKAGE_VERSION=1:${DEB_PACKAGE_VERSION_WITHOUT_EPOCHE}
 PACKAGE_FILE_NAME=${PACKAGE_NAME}_${DEB_PACKAGE_VERSION_WITHOUT_EPOCHE}_arm64.deb
 KERNEL_IMAGE_FILE_NAME=kernel8.img
+INSTALL_DEB_SCRIPT_FILE_NAME=install-deb.sh
 
 # INSTALL_FOLDER_NAME must be the same value as ${INSTALL_FOLDER_NAME} in build-kernel.sh
 INSTALL_FOLDER_NAME=install
@@ -103,3 +105,20 @@ dpkg-deb --build --root-owner-group -Zxz ${PACKAGE_NAME}
 mv ${PACKAGE_NAME}.deb ${PACKAGE_FILE_NAME}
 
 echo "Created package: $(realpath ${PACKAGE_FILE_NAME})"
+
+# Switch working directory
+cd ${INITIAL_WORKING_DIR}
+CURRENT_WORKING_DIR=$(pwd)
+echo "Switch to ${CURRENT_WORKING_DIR}"
+
+INSTALL_DEB_SCRIPT_FILE=${CURRENT_WORKING_DIR}/${INSTALL_DEB_SCRIPT_FILE_NAME}
+
+echo "Creating deb package install script file ${INSTALL_DEB_FILE}"
+cat << EOF > ${INSTALL_DEB_SCRIPT_FILE_NAME}
+#!/bin/bash
+
+dpkg -r --force-depends raspberrypi-kernel
+dpkg -i ./${DEB_PACKAGE_FOLDER_NAME}/${PACKAGE_FILE_NAME}
+
+#apt-mark hold raspberrypi-kernel
+EOF

@@ -8,6 +8,7 @@ RT_KERNEL_PATCH_REPO_URL=https://mirrors.edge.kernel.org/pub/linux/kernel/projec
 RPI_KERNEL_REPO_URL=https://github.com/raspberrypi/linux
 
 # Do not change the following variables!
+INITIAL_WORKING_DIR=$(pwd)
 CURRENT_WORKING_DIR=$(pwd)
 RPI_KERNEL_REPO_TREE_URL=${RPI_KERNEL_REPO_URL}/tree
 RPI_KERNEL_BRANCH_URL=${RPI_KERNEL_REPO_TREE_URL}/${RPI_LINUX_KERNEL_BRANCH}
