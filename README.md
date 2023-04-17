@@ -68,7 +68,7 @@ As already described, building a debian kernel package is not that easy, because
 Copy the `raspberrypi-kernel_<version>_arm64.deb` to your raspberry pi and call the following commands:
 
 ```console
-sudo dpkg -r --force-depends raspberrypi-kernel_<version>_arm64.deb
+sudo dpkg -r --force-depends raspberrypi-kernel
 sudo dpkg -i ./deb-package/raspberrypi-kernel_<version>_arm64.deb
 ```
 
