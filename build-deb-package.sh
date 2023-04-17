@@ -115,7 +115,7 @@ INSTALL_DEB_SCRIPT_FILE=${CURRENT_WORKING_DIR}/${INSTALL_DEB_SCRIPT_FILE_NAME}
 
 echo "Creating deb package install script file ${INSTALL_DEB_FILE}"
 cat << EOF > ${INSTALL_DEB_SCRIPT_FILE_NAME}
-#!/bin/bash
+#!/bin/sh
 
 dpkg -r --force-depends raspberrypi-kernel
 dpkg -i ./${DEB_PACKAGE_FOLDER_NAME}/${PACKAGE_FILE_NAME}

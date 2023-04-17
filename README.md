@@ -44,7 +44,7 @@ Run the kernel build script:
 
 ```console
 cd raspberrypi-kernel64-rt
-bash build-kernel.sh
+sh build-kernel.sh
 ```
 
 The kernel is built into the `./build` folder. All necessary files are installed into the `./install` folder with default structure. This structure is different to the raspberry pi structure. The files can not be copied to the raspberry pi sd card! If you want to install the kernel without the package, the structure in the `./deb-package/raspberrypi-kernel` folder must be used.
@@ -54,7 +54,7 @@ The kernel is built into the `./build` folder. All necessary files are installed
 Run the debian package build script:
 
 ```console
-bash build-deb-package.sh
+sh build-deb-package.sh
 ```
 
 The `raspberrypi-kernel_<version>_arm64.deb` is located in the ./deb-package folder.
@@ -75,7 +75,7 @@ sudo dpkg -i ./deb-package/raspberrypi-kernel_<version>_arm64.deb
 Or use the `./install-deb.sh` script, which must be in the same folder as the deb package:
 
 ```console
-sudo bash build-deb-package.sh
+sudo sh build-deb-package.sh
 ```
 
 Optionally set the package to hold, to prevent from updating to newer official `raspberrypi-kernel_<version>_arm64.deb` packages:
