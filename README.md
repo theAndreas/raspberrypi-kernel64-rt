@@ -69,7 +69,7 @@ Copy the `raspberrypi-kernel_<version>_arm64.deb` to your raspberry pi and call 
 
 ```console
 sudo dpkg -r --force-depends raspberrypi-kernel
-sudo dpkg -i ./deb-package/raspberrypi-kernel_<version>_arm64.deb
+sudo dpkg -i ./raspberrypi-kernel_<version>_arm64.deb
 ```
 
 Or use the `./install-deb.sh` script, which must be in the same folder as the deb package:
