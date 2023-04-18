@@ -3,7 +3,7 @@
 # Set branch or tag of rpi linux kernel (https://github.com/raspberrypi/linux)
 # For branches see: https://github.com/raspberrypi/linux/branches (example rpi-6.1.y)
 # For tag sees: https://github.com/raspberrypi/linux/tags (example 1.20230405)
-RPI_LINUX_KERNEL_BRANCH=1.20230405
+RPI_LINUX_KERNEL_BRANCH=1.20230317
 RT_KERNEL_PATCH_REPO_URL=https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt
 RPI_KERNEL_REPO_URL=https://github.com/raspberrypi/linux
 
