@@ -1,6 +1,6 @@
 # raspberrypi-kernel64-rt
 
-Realtime kernel package for 64-bit raspberry pi (kernel version `6.1.21` and package `raspberrypi-kernel_1.20230317-1_arm64.deb` in version (with epoche) `1:1.20230317-1`).
+Realtime kernel package for 64-bit raspberry pi (kernel version `6.1.19` and package `raspberrypi-kernel_1.20230317-1_arm64.deb` in version (with epoche) `1:1.20230317-1`).
 
 To use LinuxCNC on an raspberry pi a realtime kernel is needed. Unfortunately there is no official package in the repository. So I decided to do it on my own as described [here](https://forum.linuxcnc.org/9-installing-linuxcnc/47662-installing-linuxcnc-2-9-on-raspberry-pi-4-with-preempt-rt-kernel).
 
