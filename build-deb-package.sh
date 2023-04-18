@@ -118,7 +118,7 @@ cat << EOF > ${INSTALL_DEB_SCRIPT_FILE_NAME}
 #!/bin/sh
 
 dpkg -r --force-depends raspberrypi-kernel
-dpkg -i ./${DEB_PACKAGE_FOLDER_NAME}/${PACKAGE_FILE_NAME}
+dpkg -i ./${PACKAGE_FILE_NAME}
 
 #apt-mark hold raspberrypi-kernel
 EOF
