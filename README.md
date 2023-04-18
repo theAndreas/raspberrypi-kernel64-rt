@@ -78,7 +78,7 @@ Or use the `./install-deb.sh` script, which must be in the same folder as the de
 sudo sh install-deb.sh
 ```
 
-Optionally set the package to hold, to prevent from updating to newer official raspberry pi kernel packages:
+Optionally set the raspberry pi kernel package to hold, to prevent from updating to newer official versions:
 
 ```console
 apt-mark hold raspberrypi-kernel
